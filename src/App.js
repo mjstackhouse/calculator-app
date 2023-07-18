@@ -26,7 +26,7 @@ class JavascriptCalculator extends React.Component {
     let slicedExpression = '';
     
     this.setState((state) => {
-      if (state.expression === 'Invalid expression') {
+      if (state.expression === 'Invalid') {
         return {
           expression: `${numOrOperator}`
         }
