@@ -1,6 +1,7 @@
 import './App.css';
 import React from 'react';
 
+const nonZeroRegex = /[1-9]+/;
 // Variable used in concatExpression to track if a zero can be added to the expression
 let zeroStatus = false;
 
@@ -23,10 +24,14 @@ class JavascriptCalculator extends React.Component {
   
   concatExpression(numOrOperator) {
     let slicedExpression = '';
-    const nonZeroRegex = /[1-9+]/g;
     
     this.setState((state) => {
-      if (typeof numOrOperator === 'number' || numOrOperator === '.') {
+      if (state.expression === 'Invalid expression') {
+        return {
+          expression: `${numOrOperator}`
+        }
+      }
+      else if (typeof numOrOperator === 'number' || numOrOperator === '.') {
         if (numOrOperator === 0) {
           // Checking conditions of the current expression to see if the 0 can be added
           if (state.expression[state.expression.length - 1] === '0') {
@@ -43,11 +48,10 @@ class JavascriptCalculator extends React.Component {
               }
             }
           }
-          else if (
-            state.expression[state.expression.length - 1] === ' ' 
-            || state.expression[state.expression.length - 1] === undefined
-          ) { 
-            return;
+          else if (state.expression[state.expression.length - 1] === undefined || state.expression.length === 0) { 
+            return {
+              expression: '0'
+            }
           }
           zeroStatus = true;
           return {
@@ -59,8 +63,18 @@ class JavascriptCalculator extends React.Component {
           if (
             state.expression[state.expression.length - 1] === '.'
             || state.expression[state.expression.length - 2] === '.'
-          ) { 
+          ) {
             return;
+          }
+          else if (state.expression.length === 0) {
+            return {
+              expression: '0.'
+            }
+          }
+        }
+        else if (state.expression[state.expression.length - 1] === '0' && state.expression.length === 1) {
+          return {
+            expression: `${numOrOperator}`
           }
         }
         return {
@@ -81,11 +95,20 @@ class JavascriptCalculator extends React.Component {
             || state.expression[state.expression.length - 2] === '+'
           ) {
             // Handling repeated operators by replacing the previous one
-            slicedExpression = state.expression.slice(0, state.expression.length - 2);
-            return {
-              expression: slicedExpression + numOrOperator + ' '
-            }
+              slicedExpression = state.expression.slice(0, state.expression.length - 2);
+              return {
+                expression: slicedExpression + numOrOperator + ' '
+              }
           }
+          else if (state.expression[state.expression.length - 1] === '/'
+                  || state.expression[state.expression.length - 1] === '*'
+                  || state.expression[state.expression.length - 1] === '+'
+          ) {
+              slicedExpression = state.expression.slice(0, state.expression.length - 1);
+              return {
+                expression: slicedExpression + numOrOperator + ' '
+              }
+            }
           else if (state.expression[state.expression.length - 2] === '-') {
             if (
               state.expression[state.expression.length - 4] === '/'
@@ -127,10 +150,26 @@ class JavascriptCalculator extends React.Component {
   }
   
   calculateTotal() {
+    const numRegex = /[0-9]+/;
+
     this.setState((state) => {
-      return {
-        expression: `${Function('return ' + state.expression)()}`,
-        total: Function('return ' + state.expression)()
+      if (state.expression === '+'
+          || state.expression === '-'
+          || state.expression === '/'
+          || state.expression === '*'
+          || nonZeroRegex.test(state.expression) === false
+          || numRegex.test(state.expression[state.expression.length - 1]) === false
+      ) {
+        return {
+          expression: 'Invalid expression',
+          total: 0
+        }
+      }
+      else {
+        return {
+          expression: `${Function('return ' + state.expression)()}`,
+          total: Function('return ' + state.expression)()
+        }
       }
     });
   }
@@ -140,8 +179,8 @@ class JavascriptCalculator extends React.Component {
       <div>
         <div className="container-fluid">
           <div className="row" id="display-row">
-            <div className="col-12 no-pad" id="display">
-              {this.state.expression === '' ? this.state.total : this.state.expression}
+            <div className="col-12 no-pad d-flex justify-content-end align-items-center" id="display">
+              <span id='display-text'>{this.state.expression === '' ? this.state.total : this.state.expression}</span>
             </div>
           </div>
           <div className="row border-bottom-black">
