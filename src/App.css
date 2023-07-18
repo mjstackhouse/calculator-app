@@ -29,7 +29,6 @@ html {
   width: 100vw;
   height: 100vh;
   height: 100svh;
-  box-shadow: 0px 3px 35px 5px rgba(0, 0, 0, 0.1);
 }
 
 .row {
