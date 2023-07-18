@@ -1,13 +1,18 @@
 /* GENERAL STYLES */
 
 html {
+  /* font-family: 'Rajdhani' !important; */
   font-size: 16px;
   margin: 0;
   padding: 0;
 }
 
+body {
+  font-family: 'Lexend', sans-serif !important;
+}
+
 #root {
-  background-color: #141415;
+  background-color: #2B2B31;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,50 +23,91 @@ html {
 
 /* UTILITIES */
 
-.border-bottom-black {
+/* .border-bottom-black {
   border-bottom: 0.5px solid black;
-}
+} */
 
-.border-right-black {
+/* .border-right-black {
   border-right: 0.5px solid black;
-}
+} */
 
-.container-fluid {
-  text-align: center;
-  width: 100vw;
-  height: 100vh;
-  height: 100svh;
-}
-
-.row {
-  height: 16.67%;
+.row:not(:first-child) {
+  height: 13%;
 }
 
 .no-pad {
   padding: 0;
 }
 
+.pl { 
+  padding: 0 0 0 0.5rem !important;
+}
+
+.pr {
+  padding: 0 0.5rem 0 0 !important;
+}
+
+.pb {
+  padding: 0 0 0.5rem 0 !important;
+}
+
+.px {
+  padding: 0 0.5rem;
+}
+
+.p-notop {
+  padding: 0 0.5rem 0.5rem 0.5rem;
+}
+
 .btn {
   font-size: 1.5rem;
-  width: 100%;
+  border-radius: 5rem;
+  align-self: center;
+}
+
+.btn-dark, .btn-secondary, .btn-primary {
+  height: 75%;
+  width: 85%;
+}
+
+.btn-container {
+  display: flex;
   height: 100%;
-  border-radius: 0;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 }
 
 /* SPECIFIC STYLES */
 
+.container-fluid {
+  background-color: #141415;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
+}
+
+#clear, #zero {
+  height: 75%;
+  width: 95%;
+}
+
 #display-row {
-  background-color: #212529;
+  background-color: #141415;
   text-align: right;
-  padding-right: 2rem;
+  height: 35%;
 }
 
 #display {
+  background-color: #212529;
   overflow-x: hidden;
   white-space: nowrap;
   font-size: 2.5rem;
   padding-bottom: 0;
+  padding-right: 2rem;
   color: white;
+  height: 75%;
 }
 
 /* MEDIA QUERIES */
@@ -89,12 +135,16 @@ html {
 /* Touch screen with light mode */
 @media (pointer: coarse) and (prefers-color-scheme: light) {
   #root {
-    background-color: #D1D1D1;
+    background-color: #ADADAD;
+  }
+  .container-fluid {
+    background-color: #DEDEDE;
   }
   #display-row {
-    background-color: white;
+    background-color: #DEDEDE;
   }
   #display {
+    background-color: white;
     color: black;
   }
   .btn-dark {
@@ -125,12 +175,16 @@ html {
 /* Desktop with light mode */
 @media (pointer: fine) and (prefers-color-scheme: light) {
   #root {
-    background-color: #D1D1D1;
+    background-color: #ADADAD;
+  }
+  .container-fluid {
+    background-color: #DEDEDE;
   }
   #display-row {
-    background-color: white;
+    background-color: #DEDEDE;
   }
   #display {
+    background-color: white;
     color: black;
   }
   .btn-dark {
@@ -159,14 +213,14 @@ html {
     border-radius: 2rem;
   }
   #display-row {
-    border-top-right-radius: 2rem;
-    border-top-left-radius: 2rem;
+    border-top-right-radius: 5rem;
+    border-top-left-radius: 5rem;
   }
   #zero {
-    border-bottom-left-radius: 2rem;
+    border-bottom-left-radius: 5rem;
   }
   #equals {
-    border-bottom-right-radius: 2rem;
+    border-bottom-right-radius: 5rem;
   }
 }
 
