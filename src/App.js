@@ -17,6 +17,16 @@ class JavascriptCalculator extends React.Component {
     this.calculateTotal = this.calculateTotal.bind(this);
   }
 
+  componentDidMount() {
+    const btnCollection = document.getElementsByClassName('btn');
+
+    for (let i = 0; i < btnCollection.length; i++) {
+      btnCollection[i].addEventListener('click', () => {
+        window.navigator.vibrate(15);
+      })
+    }
+  }
+
   componentDidUpdate() {
     let displayOverflow = document.getElementById('display');
     displayOverflow.scrollLeft = 999999;
@@ -198,47 +208,44 @@ class JavascriptCalculator extends React.Component {
           <div className="row px border-bottom-black">
             <div className="col-3 no-pad border-right-black">
               <div className='btn-container'>
-              <button className="btn btn-dark" id="seven" onClick={() => this.concatExpression(7)}>7</button>
+                <button className="btn btn-dark" id="seven" onClick={() => this.concatExpression(7)}>7</button>
               </div>
-              {/* <button className="btn btn-dark" id="seven" onClick={() => this.concatExpression(7)}>7</button> */}
             </div>
             <div className="col-3 no-pad border-right-black">
               <div className='btn-container'>
-              <button className="btn btn-dark" id="eight" onClick={() => this.concatExpression(8)}>8</button>
+                <button className="btn btn-dark" id="eight" onClick={() => this.concatExpression(8)}>8</button>
               </div>
-              {/* <button className="btn btn-dark" id="eight" onClick={() => this.concatExpression(8)}>8</button> */}
             </div>
             <div className="col-3 no-pad border-right-black">
               <div className='btn-container'>
               <button className="btn btn-dark" id="nine" onClick={() => this.concatExpression(9)}>9</button>
               </div>
-              {/* <button className="btn btn-dark" id="nine" onClick={() => this.concatExpression(9)}>9</button> */}
             </div>
             <div className="col-3 no-pad">
               <div className='btn-container'>
-              <button className="btn btn-secondary" id="multiply" onClick={() => this.concatExpression('*')}>x</button>
+                <button className="btn btn-secondary" id="multiply" onClick={() => this.concatExpression('*')}>x</button>
               </div>
             </div>
           </div>
           <div className="row px border-bottom-black">
             <div className="col-3 no-pad border-right-black">
               <div className='btn-container'>
-              <button className="btn btn-dark" id="four" onClick={() => this.concatExpression(4)}>4</button>
+                <button className="btn btn-dark" id="four" onClick={() => this.concatExpression(4)}>4</button>
               </div>
             </div>
             <div className="col-3 no-pad border-right-black">
               <div className='btn-container'>
-              <button className="btn btn-dark" id="five" onClick={() => this.concatExpression(5)}>5</button>
+                <button className="btn btn-dark" id="five" onClick={() => this.concatExpression(5)}>5</button>
               </div>
             </div>
             <div className="col-3 no-pad border-right-black">
               <div className='btn-container'>
-              <button className="btn btn-dark" id="six" onClick={() => this.concatExpression(6)}>6</button>
+                <button className="btn btn-dark" id="six" onClick={() => this.concatExpression(6)}>6</button>
               </div>
             </div>
             <div className="col-3 no-pad">
               <div className='btn-container'>
-              <button className="btn btn-secondary" id="subtract" onClick={() => this.concatExpression('-')}>-</button>
+                <button className="btn btn-secondary" id="subtract" onClick={() => this.concatExpression('-')}>-</button>
               </div>
             </div>
           </div>
